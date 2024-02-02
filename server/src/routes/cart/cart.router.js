@@ -2,6 +2,8 @@ const express = require('express');
 
 const cartRouter = express.Router();
 
-module.exports = {
-    cartRouter,
-};
+cartRouter.post('/', addToCart);
+cartRouter.delete('/remove/:productId', removeFromCart);
+
+
+module.exports = cartRouter;

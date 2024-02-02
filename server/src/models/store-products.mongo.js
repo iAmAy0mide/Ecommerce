@@ -30,9 +30,8 @@ const storeProductSchema = new mongoose.Schema({
     productTags: {
         type: [ String ],
     },
-    isBought: {
-        type: Boolean,
-        default: false
+    productQuantity: {
+        type: Number,
     }
 });
 
