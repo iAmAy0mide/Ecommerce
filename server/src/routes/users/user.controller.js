@@ -2,11 +2,11 @@ const {
     createNewUser
 } = require('../../models/user.model');
 
-function createNewAccount(req, res) {
+async function createNewAccount(req, res) {
     const userInfo = req.body;
-    console.log(userInfo);
+    // console.log(userInfo.userEmail);
 
-    return res.status(200).json(createNewUser(userInfo));
+    return res.status(200).json(await createNewUser(userInfo));
 }
 
 module.exports = {
