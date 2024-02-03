@@ -17,8 +17,8 @@ const server = http.createServer(app);
         console.log('MongoDB connected!');
     } catch (err) {
         throw new Error(err);
-    }
-
+    } 
+    
     server.listen(PORT, () => {
         console.log(`Listening on port ${PORT}...`);
     });
