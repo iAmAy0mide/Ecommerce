@@ -46,6 +46,11 @@ async function createNewUser(userInfo) {
         }
 }
 
+async function getUserProfile() {
+    
+}
+
 module.exports = {
     createNewUser,
+    getUserProfile,
 };
