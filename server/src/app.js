@@ -1,5 +1,9 @@
 const express = require('express');
-const app = express(); 
+const passport = require();
+
+
+const app = express();
+const LocalStrategy = require('passport-local');
 
 const userRouter = require('./routes/users/user.router');
 const cartRouter = require('./routes/cart/cart.router');
@@ -12,6 +16,7 @@ const {
 
 
 app.use(express.json());
+passport.use()
 
 app.use('/user', userRouter);
 app.use('/cart', cartRouter);

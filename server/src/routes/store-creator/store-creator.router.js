@@ -17,7 +17,7 @@ const storeCreatorProducts = express.Router();
 // storeCreatorProducts.delete('/:storeId/product/:productId/remove-product', deleteStoreProduct);
 
 
-module.exports = {
+module.exports = { 
     storeCreatorRouter,
     storeCreatorProducts,
 };
