@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require();
-
+const userModel = require('./models/user.mongo');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const LocalStrategy = require('passport-local');
@@ -16,7 +17,9 @@ const {
 
 
 app.use(express.json());
-passport.use()
+passport.use(new LocalStrategy((userEmail, password, done) => {
+    userModel.findOne({ userEmail }, { userEmail })
+}));
 
 app.use('/user', userRouter);
 app.use('/cart', cartRouter);
