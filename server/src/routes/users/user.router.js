@@ -19,29 +19,7 @@ passport.use(new LocalStrategy({
     usernameField: 'userEmail',
     passwordField: 'password'
 }, async (userEmail, password, done) => {
-    // userModel.findOne({ userEmail }, async (err, user) => {
-    //     if (err) { return done("err")}
-    //     if (!user) { return done(null, false)}
-    //     const matchPassword = await bcrypt.compare(password, user.password);
-    //     if (matchPassword) {
-    //         return done(null, user.userEmail);
-    //     } else {
-    //         return done(null, false);
-    //     }
-    // });
-    // userModel.findOne({ userEmail }).exec().then(async (err, user) => {
-    //     console.log("here");
-    //     if (err) { return done(err) }
-    //     if (!user) { return done(null, false); }
-    //     const matchPassword = await bcrypt.compare(password, user.password);
-    //     if (matchPassword) {
-    //         return done(null, user.userEmail);
-    //     } else {
-    //         console.log("not match");
-    //         return done(null, false);
-    //     }
-    // });
-
+   
     try {
         const user = await userModel.findOne({ userEmail }, { password, userEmail });
         console.log(user);
@@ -64,9 +42,6 @@ passport.use(new LocalStrategy({
     }
 }));
 
-// userRouter.post('/login', passport.authenticate('local', { session: false }), function(req, res) {
-//     res.json({ user: req.user });
-//   });
 userRouter.post('/login', (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err) {
