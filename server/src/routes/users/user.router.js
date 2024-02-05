@@ -21,14 +21,11 @@ passport.use(new LocalStrategy({
 }, async (userEmail, password, done) => {
    
     try {
-        const user = await userModel.findOne({ userEmail }, { password, userEmail });
+        const user = await userModel.findOne({ userEmail }, 'password userEmail -_id');
         console.log(user);
         if (user) {
             const matchPassword = await bcrypt.compare(password, user.password);
-            // console.log({
-            //     orig: password,
-            //     hash: user.password
-            // });
+          
             console.log(matchPassword)
             if (matchPassword) {
                 console.log("match");
