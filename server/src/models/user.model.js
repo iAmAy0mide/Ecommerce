@@ -46,27 +46,37 @@ async function isValueExists(param) {
 //         }
 // }
 
-async function createNewUser(userInfo) {
-    const { firstName, lastName, userEmail, password } = userInfo
+function createNewUser(userInfo) {
 
-    const userData = Object.assign({
-        userEmail,
-        firstName,
-        lastName,
-    }, {
-        numOfProductsBought: 0,
-        paymentMethods: [],
-        userAddress: []
+    return new Promise((resolve, reject) => {
+        const { firstName, lastName, userEmail, password } = userInfo;
+
+        const userData = Object.assign({
+            userEmail,
+            firstName,
+            lastName,
+        }, {
+            numOfProductsBought: 0,
+            paymentMethods: [],
+            userAddress: []
+        });
+    
+        userModel.register(userData, password, (err) => {
+            if (err) {
+                reject({
+                    error: "A user with the given email is already registered",
+                    success: false
+                });
+                return;
+            }
+    
+            resolve({
+                success: true,
+                userEmail: userData['userEmail']
+            });
+        });
     });
-    userModel.register(userData, password , (err) => {
-        return "A user with the given email is already registered";
-        if(err) {
-            console.log(err);
-        }
-        
-        return "A user with the given email is already registered"
-        // return userData.userEmail
-    });
+   
 }
 
 async function getUserProfile() {
