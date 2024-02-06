@@ -18,38 +18,61 @@ async function isValueExists(param) {
     }
 }
 
-async function createNewUser(userInfo) { 
-    const { firstName, lastName, userEmail, password } = userInfo;
-    const existsValue = await isValueExists({userEmail});
+// async function createNewUser(userInfo) { 
+//     const { firstName, lastName, userEmail, password } = userInfo;
+//     const existsValue = await isValueExists({userEmail});
 
-    if (existsValue) {
-        return "User already exists";
-    }
-        const hashedPassword = encryptPassword(password);
+//     if (existsValue) {
+//         return "User already exists";
+//     }
+//         const hashedPassword = encryptPassword(password);
     
-        const newUser = Object.assign({
-            firstName,
-            lastName,
-            userEmail,
-            password: hashedPassword,
-        }, {
-            numOfProductsBought: 0,
-            paymentMethod: [],
-            userAddress: [],
-            });
+//         const newUser = Object.assign({
+//             firstName,
+//             lastName,
+//             userEmail,
+//             password: hashedPassword,
+//         }, {
+//             numOfProductsBought: 0,
+//             paymentMethod: [],
+//             userAddress: [],
+//             });
                 
-        try {
-          const createdUser = await userModel.create(newUser);
-          return createdUser;
-        } catch (error) {
-            throw new Error(error);
+//         try {
+//           const createdUser = await userModel.create(newUser);
+//           return createdUser;
+//         } catch (error) {
+//             throw new Error(error);
+//         }
+// }
+
+async function createNewUser(userInfo) {
+    const { firstName, lastName, userEmail, password } = userInfo
+
+    const userData = Object.assign({
+        userEmail,
+        firstName,
+        lastName,
+    }, {
+        numOfProductsBought: 0,
+        paymentMethods: [],
+        userAddress: []
+    });
+    userModel.register(userData, password , (err) => {
+        return "A user with the given email is already registered";
+        if(err) {
+            console.log(err);
         }
+        
+        return "A user with the given email is already registered"
+        // return userData.userEmail
+    });
 }
 
 async function getUserProfile() {
     
 }
-
+ 
 module.exports = {
     createNewUser,
     getUserProfile,

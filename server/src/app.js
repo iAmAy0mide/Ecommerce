@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const userModel = require('./models/user.mongo');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 
 const app = express();
 const LocalStrategy = require('passport-local').Strategy;
@@ -16,17 +17,11 @@ const {
 
 
 app.use(express.json());
-
-// passport.use(new LocalStrategy((userEmail, password, done) => {
-//     userModel.findOne({ userEmail }, async (err, user) => {
-//         if (err) { return done(err)}
-//         if (!user) { return done(null, false)}
-//         // const matchPassword = await bcrypt.compare(password, user.password);
-//         return done(null, user.userEmail);
-//         // if (matchPassword) {
-//         // }
-//     });
-// }));
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET
+}));
 
 app.use('/user', userRouter);
 app.use('/cart', cartRouter);
@@ -34,12 +29,11 @@ app.use('/products', productRouter);
 app.use('/store', storeCreatorRouter);
 app.use('/store/products', storeCreatorProducts);
 
-// userRouter.post('/login', passport.authenticate('local', { session: false }), function(req, res) {
-//     res.json({ user: req.user });
-//   });
-
 app.get('/', (req, res) => {
     res.send('Yo man');
+});
+app.get('/login', (req, res) => {
+    res.json({ msg: 'login'});
 });
 app.use('*', (req, res) => {
     res.status(404).json({ error: 'page not found'})
