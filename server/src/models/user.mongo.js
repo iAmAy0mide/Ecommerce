@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -15,7 +16,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    paymentMethod: {
+    // phoneNumber: {
+    //     type: Number,
+    //     required: true,
+    // },
+    paymentMethods: {
         type: [ mongoose.Types.ObjectId ]
     },
     numOfProductsBought: {
@@ -42,4 +47,7 @@ const userSchema = new mongoose.Schema({
     ]
 });
 
-module.exports = mongoose.model('User', userSchema);
+
+userSchema.plugin(passportLocalMongoose, { usernameField: 'userEmail' });
+
+module.exports =  mongoose.model('User', userSchema);
