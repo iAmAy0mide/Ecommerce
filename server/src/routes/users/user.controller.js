@@ -9,10 +9,9 @@ async function createNewAccount(req, res) {
     } catch (error) {        
         return res.status(500).json({
             success: false,
-            message: error
+            error
         });
-    }
-    
+    }    
 }
 
 module.exports = {
