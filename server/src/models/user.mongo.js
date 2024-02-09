@@ -13,6 +13,16 @@ const userSchema = new mongoose.Schema({
     userEmail: {
         type: String,
     },
+    cart: [  
+            {
+                prodId: {
+                    type: mongoose.Types.ObjectId
+                },
+                count: {
+                    type: Number
+                }
+            }
+        ],
     password: {
         type: String,
     },
