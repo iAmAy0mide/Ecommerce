@@ -1,10 +1,11 @@
 const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
-const CookieParser = require('cookie-parser');
-const CookieSession = require('cookie-session');
+// const CookieParser = require('cookie-parser');
+// const CookieSession = require('cookie-session');
 const userModel = require('./models/user.mongo');
 const LocalStrategy = require('passport-local').Strategy;
+const helmet = require('helmet');
 
 const app = express();
 
@@ -16,7 +17,7 @@ const {
     storeCreatorRouter,
     storeCreatorProducts  
  } = require('./routes/store-creator/store-creator.router');
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
  
  app.use(session({
     resave: false,
@@ -27,12 +28,10 @@ const cookieSession = require('cookie-session');
         maxAge: 7 * 24 * 60 * 60 * 1000,        
     }
 }));
-app.use(cookieSession({
-    h
-}))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
+app.use(helmet());
 
 passport.use(new LocalStrategy({
     usernameField: 'userEmail',
